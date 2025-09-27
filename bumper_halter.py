@@ -1,23 +1,30 @@
 import rospy
 from geometry_msgs.msg import Twist
-from kobuki_msmgs.msg import BumperEvent
+from std_msgs.msg import String
+from kobuki_msgs.msg import BumperEvent
 
 
 class BumperHalter:
     def __init__(self):
         rospy.init_node("bumper_halter", anonymous=True)
-        self.pub = rospy.Publisher("/cmd_vel_mux/input/navi", Twist, queue_size=10)
+        self.pub = rospy.Publisher("/bumper_halter", String, queue_size=1)
+
         self.sub = rospy.Subscriber(
             "/mobile_base/events/bumper", BumperEvent, self.halter
         )
-        rospy.spinn()
+        rospy.spin()
 
     def halter(self, data):
         collision = data.state
         if collision:
-            vel = Twist()
-            vel.linear.x = 0
-            vel.angular.z = 0
+            msg = "1\n0\n0"
+            self.pub.publish(msg)
 
-            self.pub.publish(vel)
-            rospy.sleep()
+        # kinda need to manually drag out in the simulation
+        # rethink this, maybe ask expected behavior
+        msg = "0\n0\n0"
+        self.pub.publish(msg)
+
+
+if __name__ == "__main__":
+    BumperHalter = BumperHalter()

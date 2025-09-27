@@ -1,17 +1,18 @@
 #!/usr/bin/env python2
 
 import rospy
-from geometry_msgs.msg import Twist
+from std_msgs.msg import String
 
 class AutoDrive:
-    def __init__():
+    def __init__(self):
         rospy.init_node("auto_drive", anonymous=True)
-        pub = rospy.Publisher("/cmd_vel_mux/input/navi", Twist, queue_size=10)
-        vel = Twist()
-        vel.linear.x = 0.2
-        vel.angular.z = 0
+        pub = rospy.Publisher("/auto_drive", String, queue_size=10)
         rate = rospy.Rate(3)
         while not rospy.is_shutdown():
-            pub.publish(vel)
-            print("Velocity " + str(vel))
-            rate.sleep()
+            msg = '6\n0.1\n0'
+            pub.publish(msg)
+            rospy.sleep(1)
+
+            
+if __name__ == "__main__":
+    AutoDrive = AutoDrive()
