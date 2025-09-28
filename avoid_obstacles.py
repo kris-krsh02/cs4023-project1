@@ -62,6 +62,7 @@ class ObstacleAvoider:
         self.pub_avoid.publish(msg)
         rospy.sleep(1)
         msg = "0\n0\n0"
+        self.pub_avoid.publish(msg)
 
 
 if __name__ == "__main__":

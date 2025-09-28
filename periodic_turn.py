@@ -30,7 +30,8 @@ class PeriodicTurn:
             self.prev_x = curr_x
             self.prev_y = curr_y
 
-            self.pub.publish("5\n0\n0")
+            rospy.sleep(1)
+            self.pub.publish("0\n0\n0")
 
 
 if __name__ == "__main__":

@@ -20,10 +20,13 @@ class BumperHalter:
             msg = "1\n0\n0"
             self.pub.publish(msg)
 
-        # kinda need to manually drag out in the simulation
-        # rethink this, maybe ask expected behavior
-        msg = "0\n0\n0"
-        self.pub.publish(msg)
+            # kinda need to manually drag out in the simulation
+            # rethink this, maybe ask expected behavior
+            msg = "1\n-0.2\n-1.7"
+            self.pub.publish(msg)
+            rospy.sleep(1)
+            msg = "0\n0\n0"
+            self.pub.publish(msg)
 
 
 if __name__ == "__main__":

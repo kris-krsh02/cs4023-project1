@@ -11,7 +11,7 @@ class AutoDrive:
         while not rospy.is_shutdown():
             msg = '6\n0.1\n0'
             pub.publish(msg)
-            rospy.sleep(1)
+            rate.sleep()
 
             
 if __name__ == "__main__":
