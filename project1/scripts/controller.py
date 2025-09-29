@@ -11,6 +11,7 @@ class Controller:
         self.pub = rospy.Publisher("/cmd_vel_mux/input/navi", Twist, queue_size=1)
 
         self.sub = rospy.Subscriber("/bumper_halter", String, self.callback)
+        self.sub = rospy.Subscriber("/manual_nav", String, self.callback)
         self.sub = rospy.Subscriber("/escape", String, self.callback)
         self.sub = rospy.Subscriber("/avoid", String, self.callback)
         self.sub = rospy.Subscriber("/periodic_turn", String, self.callback)
@@ -27,7 +28,7 @@ class Controller:
         if priority > self.active_action:
             return
 
-        print('here')    
+        # print('here')    
         self.active_action = priority
         vel_msg = Twist()
         vel_msg.linear.x = float(linear)

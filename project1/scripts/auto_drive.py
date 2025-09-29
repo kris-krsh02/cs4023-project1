@@ -9,7 +9,7 @@ class AutoDrive:
         pub = rospy.Publisher("/auto_drive", String, queue_size=10)
         rate = rospy.Rate(3)
         while not rospy.is_shutdown():
-            msg = '6\n0.1\n0'
+            msg = '6\n0.2\n0'
             pub.publish(msg)
             rate.sleep()
 
