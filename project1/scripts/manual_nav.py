@@ -4,6 +4,7 @@ import rospy
 from geometry_msgs.msg import Twist
 from std_msgs.msg import String
 
+
 class ManualNav:
     def __init__(self):
         rospy.init_node("nav_dispatcher", anonymous=True)
@@ -15,13 +16,13 @@ class ManualNav:
         linear_x = data.linear.x
         angular_z = data.angular.z
 
-        if (linear_x == 0 and angular_z == 0):
+        if linear_x == 0 and angular_z == 0:
             return
 
-        vel_msg = "2\n" + str(linear_x) + '\n' + str(angular_z)
+        vel_msg = "2\n" + str(linear_x) + "\n" + str(angular_z)
         self.pub.publish(vel_msg)
         rospy.sleep(0.1)
-        self.pub.publish("0\n0\n0")
+
 
 if __name__ == "__main__":
     ManualNav = ManualNav()
