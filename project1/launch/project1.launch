@@ -1,6 +1,6 @@
 <launch>
-  <!-- Put name of world file here -->
-  <arg name="world_file"  default="$(find project1)/worlds/room_world.world"/>
+  <!-- World file argument -->
+  <arg name="world_file"  default="$(find project1)/worlds/project1_world.world"/>
 
   <arg name="base"      value="$(optenv TURTLEBOT_BASE kobuki)"/> <!-- create, roomba -->
   <arg name="battery"   value="$(optenv TURTLEBOT_BATTERY /proc/acpi/battery/BAT0)"/>  <!-- /proc/acpi/battery/BAT0 --> 
@@ -21,9 +21,8 @@
     <arg name="3d_sensor" value="$(arg 3d_sensor)"/>
   </include>
 
-<!-- Might need to restore this for keyboard -->
-  <!-- <include file="$(find project1)/launch/custom_teleop.launch"/> -->
-
+  <!-- Launch turtlebot_teleop_keyboard with custom launch file -->
+  <include file="$(find project1)/launch/custom_teleop.launch"/>
   
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
     <param name="publish_frequency" type="double" value="30.0" />
@@ -40,8 +39,8 @@
     <remap from="scan" to="/scan"/>
   </node>
 
-  <!-- Added stuff starts here -->
-  <node pkg="project1" type="controller.py" name="controller" launch-prefix="gnome-terminal -x"/>
+  <!-- Start all nodes -->
+  <node pkg="project1" type="controller.py" name="controller" output="screen"/>
   <node pkg="project1" type="auto_drive.py" name="auto_drive" output="screen"/>
   <node pkg="project1" type="avoid_obstacles.py" name="avoid_obstacles" output="screen"/>
   <node pkg="project1" type="bumper_halter.py" name="bumper_halter" output="screen"/>
@@ -89,5 +88,5 @@
   </node>
 
   <!-- From turtlebot_rviz_launchers/launch/view_navigation.launch-->
-  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robotics-project-1)/launch/navigation.rviz"/> -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find project1)/launch/navigation.rviz"/>
 </launch>
